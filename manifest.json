@@ -1,0 +1,7 @@
+{
+  "name": "Gerecht app",
+  "short_name": "Gerecht app",
+  "description": "AUI project voor klanten om rechten te bestellen",
+  "start_url": "/",
+  "display": "standalone"
+}

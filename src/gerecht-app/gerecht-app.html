@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="gerecht-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class GerechtApp extends Polymer.Element {
+      static get is() { return 'gerecht-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'gerecht-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(GerechtApp.is, GerechtApp);
+  </script>
+</dom-module>
