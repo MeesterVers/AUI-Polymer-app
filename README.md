@@ -1,6 +1,7 @@
-# \<Gerecht app\>
+# \Resturant Systeem\>
 
-AUI project voor klanten om rechten te bestellen
+AUI project voor klanten om gerechten te bestellen.
+Ontwikkelt door V1D AUI Groep 2.
 
 ## Install the Polymer-CLI
 
