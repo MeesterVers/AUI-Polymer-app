@@ -1,0 +1,51 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-datatable/paper-datatable.html">
+
+<dom-module id="keuken-view">
+  <template>
+   <style>
+   :host {
+    display: block;
+  }
+</style>
+<template is="dom-repeat" items="{{coins}}" as="coin">
+  <div>[[index]]  - [[coin.abbreviation]] : [[coin.coin]]</div>
+</template>
+</template>
+
+<script>
+    /**
+     * @customElement
+     * @polymer
+     */
+     class keukenView extends Polymer.Element {
+
+
+      static get is() { return 'keuken-view'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'gerecht-app'
+          },
+
+          coins: {
+            type: Array,
+            //observer: 'coinsGewijzigd',
+            value: [
+            {abbreviation:"BTC", coin:"Bitcoin"},
+            {abbreviation:"ETH", coin:"Ethereum"},
+            {abbreviation:"LTC", coin:"Litecoin"},
+            {abbreviation:"XRP", coin:"Ripplecoin"},
+            {abbreviation:"BCH", coin:"Bitcoin Cash"},
+            {abbreviation:"ETC", coin:"Ethereum Classic"},
+            {abbreviation:"BCG", coin:"Bitcoin Gold"}
+            ]
+          }
+        };
+      }
+    }
+    window.customElements.define(keukenView.is, keukenView);
+
+  </script>
+</dom-module>
