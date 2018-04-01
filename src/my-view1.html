@@ -13,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/vaadin-list-box/vaadin-list-box.html">
 <link rel="import" href="../bower_components/d2l-menu/d2l-menu.html">
 <link rel="import" href="../bower_components/d2l-menu/d2l-menu-item-checkbox.html">
+<link rel="import" href="../bower_components/d2l-button/d2l-button.html">
 
 <dom-module id="my-view1">
   <template>
@@ -40,6 +41,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       iron-list {
         flex: 1 1 auto;
       }
+
+      d2l-button {
+        margin-top: 1em;
+      }      
       
     </style>
   
@@ -66,6 +71,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <d2l-menu-item-checkbox text="Soep €5,-" value="2"></d2l-menu-item-checkbox>
       <d2l-menu-item-checkbox text="Soep €5,-" value="3"></d2l-menu-item-checkbox>
     </d2l-menu>
+
+    <d2l-button primary>Bevestigen</d2l-button>
+
   </template>
 
   <script>
