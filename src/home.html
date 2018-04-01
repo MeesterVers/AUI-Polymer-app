@@ -1,0 +1,86 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/vaadin-ordered-layout/vaadin-horizontal-layout.html">
+<!-- <link rel="import" href="../bower_components/app-route/app-route.html"> -->
+<!-- <link rel="import" href="../bower_components/app-route/app-location.html"> -->
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+
+<dom-module id="home-page">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+    /* For demonstration purposes only */
+    .block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 15em;
+      height: 15em;
+      background-color: rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <!-- <app-location route="{{route}}"></app-location> -->
+  <center><h4>Home</h4></center>
+  <!-- producten template -->
+  <vaadin-horizontal-layout>
+    <template is="dom-repeat" items="{{producten}}" as="product">
+     <div class="block">
+      [[product.naam]] <br> [[product.prijs]]
+    </div>
+  </template>
+</vaadin-horizontal-layout>
+
+<template>
+  <paper-card heading="Emmental" image="./images/placeholder.jpg" alt="Emmental">
+    <div class="card-content">
+      Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
+    </div>
+    <div class="card-actions">
+      <paper-button>Share</paper-button>
+      <paper-button>Explore!</paper-button>
+    </div>
+  </paper-card>
+
+</template>
+<!-- producten template -->
+
+</template>
+
+<script>
+    /**
+     * @customElement
+     * @polymer
+     */
+     class GerechtApp extends Polymer.Element {
+      static get is() { return 'home-page'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'gerecht-app'
+          },
+
+          producten: {
+            type: Array,
+            //observer: 'coinsGewijzigd',
+            value: [
+            {naam:"Nasi", prijs:"8.50"},
+            {naam:"Bami", prijs:"7.00"},
+            {naam:"Roti Kip", prijs:"10.00"},
+            {naam:"Roti Doks", prijs:"12.00"},
+            {naam:"Saoto groot", prijs:"9.00"}
+            ]
+          }
+        };
+      }
+    }
+
+    window.customElements.define(GerechtApp.is, GerechtApp);
+  </script>
+</dom-module>

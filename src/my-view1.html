@@ -1,0 +1,83 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/vaadin-ordered-layout/vaadin-horizontal-layout.html">
+<link rel="import" href="../bower_components/vaadin-list-box/vaadin-list-box.html">
+<link rel="import" href="../bower_components/d2l-menu/d2l-menu.html">
+<link rel="import" href="../bower_components/d2l-menu/d2l-menu-item-checkbox.html">
+
+<dom-module id="my-view1">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+      .block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 15em;
+      height: 4em;
+      background-color: rgba(0, 0, 0, 0.1);
+      border: 1px solid rgb(255, 255, 255);
+      }
+      :host {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      }
+
+      iron-list {
+        flex: 1 1 auto;
+      }
+      
+    </style>
+  
+  <d2l-menu label="Voorgerecht">
+      <d2l-menu-item text="Voorgerecht"></d2l-menu-item>
+      <d2l-menu-item-checkbox text="Soep €5,-" value="1"></d2l-menu-item-checkbox>
+      <d2l-menu-item-checkbox text="Soep €5,-" value="2"></d2l-menu-item-checkbox>
+      <d2l-menu-item-checkbox text="Soep €5,-" value="3"></d2l-menu-item-checkbox>
+    </d2l-menu>
+
+
+      
+  <d2l-menu label="Hoofdgerecht">
+      <d2l-menu-item text="Hoofdgerecht"></d2l-menu-item>
+      <d2l-menu-item-checkbox text="Soep €5,-" value="1"></d2l-menu-item-checkbox>
+      <d2l-menu-item-checkbox text="Soep €5,-" value="2"></d2l-menu-item-checkbox>
+      <d2l-menu-item-checkbox text="Soep €5,-" value="3"></d2l-menu-item-checkbox>
+    </d2l-menu>
+
+      
+  <d2l-menu label="Nagerecht">
+      <d2l-menu-item text="Nagerecht"></d2l-menu-item>
+      <d2l-menu-item-checkbox text="Soep €5,-" value="1"></d2l-menu-item-checkbox>
+      <d2l-menu-item-checkbox text="Soep €5,-" value="2"></d2l-menu-item-checkbox>
+      <d2l-menu-item-checkbox text="Soep €5,-" value="3"></d2l-menu-item-checkbox>
+    </d2l-menu>
+  </template>
+
+  <script>
+    class MyView1 extends Polymer.Element {
+      static get is() { return 'my-view1'; }
+    }
+    window.addEventListener('WebComponentsReady', function() {
+    var item = document.querySelector('#selectable');
+    item.addEventListener('click', e => item.selected = !item.selected);
+    });
+    
+
+    window.customElements.define(MyView1.is, MyView1);
+  </script>
+</dom-module>
