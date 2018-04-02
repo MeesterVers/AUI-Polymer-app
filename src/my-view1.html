@@ -44,6 +44,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     d2l-button {
       margin-top: 1em;
+      float: left;
+      margin-right:5px;
     }      
     
     d2l-menu-item{
@@ -55,9 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       margin-top: -1.5em;
       text-align: right;
     }
-
-  
-
+    
   </style>
   
 <!--   <template is="dom-repeat" items="{{producten}}" as="product">
@@ -89,11 +89,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template is="dom-repeat" items="{{producten}}" as="product" filter="_isNagerecht" observe="product.categorie">
     <d2l-menu-item-checkbox on-click="_itemSelected" data-item$="[[product]]" text="[[product.naam]] €[[product.prijs]],-" value="[[product.prijs]]"></d2l-menu-item-checkbox>
   </template>
-</d2l-menu>
+</d2l-menu> 
 
-<d2l-floating-buttons>
+<div>
 <d2l-button on-click="_bevestig_bestelling" primary>Bevestigen</d2l-button>
-<d2l-button class= button on-click="_restartBestelling" primary>Bestelling wijzigen</d2l-button></d2l-floating-buttons>
+<d2l-button on-click="_restartBestelling" primary>Bestelling wijzigen</d2l-button></div>
 
 <h2>Totaalprijs €[[totaalPrijs]],-</h2>
 
