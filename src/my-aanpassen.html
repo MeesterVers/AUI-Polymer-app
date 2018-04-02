@@ -1,0 +1,159 @@
+<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<dom-module id="my-aanpassen">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      #geheel {
+        padding: 50px 0px 0px 200px;
+        width: 800px;
+        height: 250px;
+      }
+
+      #text {
+        padding: 100px 0px 0px 100px;
+      }
+
+      #links {
+        width: 400px;
+        height: 200px;
+        float: left;
+        padding: 15px;
+
+      }
+
+      #links p {
+        padding: 10px;
+      }
+
+      #rechts {
+        height: 200px;
+        width: 300px;
+
+        float: left;
+      }
+
+      #text2 {
+        padding: 0px 0px 0px 100px;
+        height: 50px;
+      }
+
+      #gereedknop {
+        height: 50px;
+        float: right;
+        padding-right: 700px;      }
+
+      #knoprij1 {
+        padding: 20px 0px 0px 0px;
+      }
+
+      #knoprij2 {
+        padding: 20px 0px 0px 0px;
+      }
+
+      #knoprij3 {
+        padding: 20px 0px 0px 0px;
+      }
+
+      paper-button {
+        background-color: #0091ED;
+        color:white;
+        text-transform:initial;
+      }
+    </style>
+
+    <p id="text">Geselecteerde items:</p>
+    <div id="geheel">
+
+      <div id="links">
+        <p>voorgerecht: [[voorgerecht]]</p>
+        <p>hoofdgerecht: [[hoofdgerecht]]</p>
+        <p>nagerecht: [[nagerecht]]</p>
+      </div>
+      <div id="rechts">
+        <div id="knoprij1">
+          <paper-button on-click="aanpassenHandler">
+            aanpassen
+          </paper-button>
+          <paper-button on-click="verwijderVoorgerechtHandler">verwijderen</paper-button>
+        </div>
+        <div id="knoprij2">
+          <paper-button on-click="aanpassenHandler">
+            aanpassen
+          </paper-button>
+          <paper-button on-click="verwijderHoofdGerechtHandler">verwijderen</paper-button>
+        </div>
+        <div id="knoprij3">
+          <paper-button on-click="aanpassenHandler">
+            aanpassen
+          </paper-button>
+          <paper-button on-click="verwijderNagerechtHandler">verwijderen</paper-button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p id="text2">totaalprijs [[totP]]</p>
+    </div>
+    <div id="gereedknop">
+      <paper-button on-click="gereedHandler">gereed</paper-button>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class MyAanpassen extends Polymer.Element {
+      static get is() { return 'my-aanpassen'; }
+      static get properties() {
+        return {
+          totP: String, voorgerecht: String, hoofdgerecht: String, nagerecht: String, test: String
+        };
+      }
+
+      constructor() {
+        super();
+        this.totP = "€" + "14,5" + "-";
+        this.voorgerecht = "brazilliaanse kippensoep";
+        this.hoofdgerecht = "nasi goreng";
+        this.nagerecht = "bananaflip";
+      }
+
+      verwijderVoorgerechtHandler() {
+        if (confirm("verwijder dit item?")) {
+          this.voorgerecht = ""
+        }
+      }
+      verwijderHoofdGerechtHandler() {
+        if (confirm("verwijder dit item?")) {
+          this.hoofdgerecht = ""
+        }
+
+      }
+      verwijderNagerechtHandler() {
+        if (confirm("verwijder dit item?")) {
+          this.nagerecht = ""
+        }
+      }
+      aanpassenHandler() {
+        if (confirm("aanpassen?")) {
+          window.location = ""
+        }
+      }
+      gereedHandler() {
+        if (confirm("gereed?")) {
+          window.location = ""
+        }
+      }
+    }
+    window.customElements.define(MyAanpassen.is, MyAanpassen);
+  </script>
+</dom-module>
