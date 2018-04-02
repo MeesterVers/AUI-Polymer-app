@@ -18,12 +18,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="my-view1">
   <template>
     <style include="shared-styles">
-      :host {
-        display: block;
+    :host {
+      display: block;
 
-        padding: 10px;
-      }
-      .block {
+      padding: 10px;
+    }
+    .block {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -31,58 +31,101 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       height: 4em;
       background-color: rgba(0, 0, 0, 0.1);
       border: 1px solid rgb(255, 255, 255);
-      }
-      :host {
+    }
+    :host {
       height: 100vh;
       display: flex;
       flex-direction: column;
-      }
-
-      iron-list {
-        flex: 1 1 auto;
-      }
-
-      d2l-button {
-        margin-top: 1em;
-      }      
-      
-    </style>
-  
-  <d2l-menu label="Voorgerecht">
-      <d2l-menu-item text="Voorgerecht"></d2l-menu-item>
-      <d2l-menu-item-checkbox text="Soep €5,-" value="1"></d2l-menu-item-checkbox>
-      <d2l-menu-item-checkbox text="Soep €5,-" value="2"></d2l-menu-item-checkbox>
-      <d2l-menu-item-checkbox text="Soep €5,-" value="3"></d2l-menu-item-checkbox>
-    </d2l-menu>
-
-
-      
-  <d2l-menu label="Hoofdgerecht">
-      <d2l-menu-item text="Hoofdgerecht"></d2l-menu-item>
-      <d2l-menu-item-checkbox text="Soep €5,-" value="1"></d2l-menu-item-checkbox>
-      <d2l-menu-item-checkbox text="Soep €5,-" value="2"></d2l-menu-item-checkbox>
-      <d2l-menu-item-checkbox text="Soep €5,-" value="3"></d2l-menu-item-checkbox>
-    </d2l-menu>
-
-      
-  <d2l-menu label="Nagerecht">
-      <d2l-menu-item text="Nagerecht"></d2l-menu-item>
-      <d2l-menu-item-checkbox text="Soep €5,-" value="1"></d2l-menu-item-checkbox>
-      <d2l-menu-item-checkbox text="Soep €5,-" value="2"></d2l-menu-item-checkbox>
-      <d2l-menu-item-checkbox text="Soep €5,-" value="3"></d2l-menu-item-checkbox>
-    </d2l-menu>
-
-    <d2l-button primary>Bevestigen</d2l-button>
-
-  </template>
-
-  <script>
-    class MyView1 extends Polymer.Element {
-      static get is() { return 'my-view1'; }
     }
+
+    iron-list {
+      flex: 1 1 auto;
+    }
+
+    d2l-button {
+      margin-top: 1em;
+    }      
+
+
+  </style>
+  
+<!--   <template is="dom-repeat" items="{{producten}}" as="product">
+   <div class="block">
+    [[product.naam]] <br> [[product.prijs]] <br> [[product.categorie]]
+  </div>
+</template> -->
+
+<d2l-menu label="Voorgerecht">
+  <d2l-menu-item text="Voorgerecht"></d2l-menu-item>
+  <template is="dom-repeat" items="{{producten}}" as="product" filter="_isVoorgerecht" observe="product.categorie">
+    <d2l-menu-item-checkbox text="[[product.naam]] €[[product.prijs]],-" value="[[product.prijs]]"></d2l-menu-item-checkbox>
+  </template>
+</d2l-menu>
+
+<d2l-menu label="Hoofdgerecht">
+  <d2l-menu-item text="Hoofdgerecht"></d2l-menu-item>
+  <template is="dom-repeat" items="{{producten}}" as="product" filter="_isHoofdgerecht" observe="product.categorie">
+    <d2l-menu-item-checkbox text="[[product.naam]] €[[product.prijs]],-" value="[[product.prijs]]"></d2l-menu-item-checkbox>
+  </template>
+</d2l-menu>
+
+
+<d2l-menu label="Nagerecht">
+  <d2l-menu-item text="Nagerecht"></d2l-menu-item>
+  <template is="dom-repeat" items="{{producten}}" as="product" filter="_isNagerecht" observe="product.categorie">
+    <d2l-menu-item-checkbox text="[[product.naam]] €[[product.prijs]],-" value="[[product.prijs]]"></d2l-menu-item-checkbox>
+  </template>
+</d2l-menu>
+
+<d2l-button on-click="_bevestig_bestelling" primary>Bevestigen</d2l-button>
+
+</template>
+
+<script>
+  class MyView1 extends Polymer.Element {
+    static get is() { return 'my-view1'; }
+    static get properties() {
+      return {
+        producten: {
+          type: Array,
+            //observer: 'coinsGewijzigd',
+            value: [
+            {naam:"Nasi", prijs:"8.50", categorie:"hoofdgerecht"},
+            {naam:"Bami", prijs:"7.00", categorie:"hoofdgerecht"},
+            {naam:"Roti Kip", prijs:"10.00", categorie:"hoofdgerecht"},
+            {naam:"Roti Doks", prijs:"12.00", categorie:"hoofdgerecht"},
+            {naam:"Saoto groot", prijs:"9.00", categorie:"voorgerecht"},
+            {naam:"Saoto klein", prijs:"7.00", categorie:"voorgerecht"},
+            {naam:"Ijscream", prijs:"5.50", categorie:"nagerecht"},
+            {naam:"Bami soep", prijs:"9.00", categorie:"voorgerecht"},
+            {naam:"Milkshake", prijs:"8.00", categorie:"nagerecht"},
+            {naam:"Saoto groot", prijs:"9.00", categorie:"nagerecht"},
+            {naam:"Termasusu", prijs:"7.50", categorie:"nagerecht"}
+            ]
+          },
+        };
+      }
+      _isVoorgerecht(product) {
+        return product.categorie == 'voorgerecht';
+      }
+
+      _isHoofdgerecht(product) {
+        return product.categorie == 'hoofdgerecht';
+      }
+
+      _isNagerecht(product) {
+        return product.categorie == 'nagerecht';
+      }
+
+      _bevestig_bestelling(){
+        alert("Bestelling bevestigd");
+        console.log(this.producten);
+      }
+    }
+
     window.addEventListener('WebComponentsReady', function() {
-    var item = document.querySelector('#selectable');
-    item.addEventListener('click', e => item.selected = !item.selected);
+      var item = document.querySelector('#selectable');
+      item.addEventListener('click', e => item.selected = !item.selected);
     });
     
 
