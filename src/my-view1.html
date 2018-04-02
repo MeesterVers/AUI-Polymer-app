@@ -47,8 +47,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }      
     
     d2l-menu-item{
-        background-color: rgb(91, 148, 255);
-        color: white;
+      background-color: rgb(91, 148, 255);
+      color: white;
     }
     
     h2{
@@ -66,8 +66,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <d2l-menu label="Voorgerecht">
   <d2l-menu-item text="Voorgerecht"></d2l-menu-item>
-  <template is="dom-repeat" items="{{producten}}" as="product" filter="_isVoorgerecht" observe="product.categorie">
-    <d2l-menu-item-checkbox text="[[product.naam]] €[[product.prijs]],-" value="[[product.prijs]]"></d2l-menu-item-checkbox>
+  <template id="voorgerecht" is="dom-repeat" items="{{producten}}" as="product" filter="_isVoorgerecht" observe="product.categorie">
+    <d2l-menu-item-checkbox on-click="_itemSelected" data-item$="[[product]]" text="[[product.naam]] €[[product.prijs]],-" value="[[product.prijs]]"></d2l-menu-item-checkbox>
   </template>
 </d2l-menu>
 
@@ -76,7 +76,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <d2l-menu label="Hoofdgerecht">
   <d2l-menu-item text="Hoofdgerecht"></d2l-menu-item>
   <template is="dom-repeat" items="{{producten}}" as="product" filter="_isHoofdgerecht" observe="product.categorie">
-    <d2l-menu-item-checkbox text="[[product.naam]] €[[product.prijs]],-" value="[[product.prijs]]"></d2l-menu-item-checkbox>
+    <d2l-menu-item-checkbox on-click="_itemSelected" data-item$="[[product]]" text="[[product.naam]] €[[product.prijs]],-" value="[[product.prijs]]"></d2l-menu-item-checkbox>
   </template>
 </d2l-menu>
 
@@ -85,13 +85,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <d2l-menu label="Nagerecht">
   <d2l-menu-item text="Nagerecht"></d2l-menu-item>
   <template is="dom-repeat" items="{{producten}}" as="product" filter="_isNagerecht" observe="product.categorie">
-    <d2l-menu-item-checkbox text="[[product.naam]] €[[product.prijs]],-" value="[[product.prijs]]"></d2l-menu-item-checkbox>
+    <d2l-menu-item-checkbox on-click="_itemSelected" data-item$="[[product]]" text="[[product.naam]] €[[product.prijs]],-" value="[[product.prijs]]"></d2l-menu-item-checkbox>
   </template>
 </d2l-menu>
 
 <d2l-button on-click="_bevestig_bestelling" primary>Bevestigen</d2l-button>
+<d2l-button on-click="_restartBestelling" primary>Bestelling wijzigen</d2l-button>
 
-<h2>Totaalprijs €5,-</h2>
+<h2>Totaalprijs €[[totaalPrijs]],-</h2>
 
 </template>
 
@@ -100,48 +101,84 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     static get is() { return 'my-view1'; }
     static get properties() {
       return {
+        totaalPrijs: {
+          type: String,
+          value: '0'
+        },
+
         producten: {
           type: Array,
-            value: [
-            {naam:"Nasi", prijs:"8.50", categorie:"hoofdgerecht"},
-            {naam:"Bami", prijs:"7.00", categorie:"hoofdgerecht"},
-            {naam:"Roti Kip", prijs:"10.00", categorie:"hoofdgerecht"},
-            {naam:"Roti Doks", prijs:"12.00", categorie:"hoofdgerecht"},
-            {naam:"Saoto groot", prijs:"9.00", categorie:"voorgerecht"},
-            {naam:"Saoto klein", prijs:"7.00", categorie:"voorgerecht"},
-            {naam:"Ijscream", prijs:"5.50", categorie:"nagerecht"},
-            {naam:"Bami soep", prijs:"9.00", categorie:"voorgerecht"},
-            {naam:"Milkshake", prijs:"8.00", categorie:"nagerecht"},
-            {naam:"Saoto groot", prijs:"9.00", categorie:"nagerecht"},
-            {naam:"Termasusu", prijs:"7.50", categorie:"nagerecht"}
-            ]
-          },
-        };
-      }
-      _isVoorgerecht(product) {
-        return product.categorie == 'voorgerecht';
-      }
+          value: [
+          {naam:"Nasi", prijs:"8.50", categorie:"hoofdgerecht"},
+          {naam:"Bami", prijs:"7.00", categorie:"hoofdgerecht"},
+          {naam:"Roti Kip", prijs:"10.00", categorie:"hoofdgerecht"},
+          {naam:"Roti Doks", prijs:"12.00", categorie:"hoofdgerecht"},
+          {naam:"Saoto groot", prijs:"9.00", categorie:"voorgerecht"},
+          {naam:"Saoto klein", prijs:"7.00", categorie:"voorgerecht"},
+          {naam:"Ijscream", prijs:"5.50", categorie:"nagerecht"},
+          {naam:"Bami soep", prijs:"9.00", categorie:"voorgerecht"},
+          {naam:"Milkshake", prijs:"8.00", categorie:"nagerecht"},
+          {naam:"Saoto groot", prijs:"9.00", categorie:"nagerecht"},
+          {naam:"Termasusu", prijs:"7.50", categorie:"nagerecht"}
+          ]
+        },
 
-      _isHoofdgerecht(product) {
-        return product.categorie == 'hoofdgerecht';
-      }
-
-      _isNagerecht(product) {
-        return product.categorie == 'nagerecht';
-      }
-
-      _bevestig_bestelling(){
-        alert("Bestelling bevestigd");
-        console.log(this.producten);
-      }
+        gekozen_producten: {
+          type: Array,
+          value: []
+        }
+      };
+    }
+    _isVoorgerecht(product) {
+      return product.categorie == 'voorgerecht';
     }
 
-    window.addEventListener('WebComponentsReady', function() {
-      var item = document.querySelector('#selectable');
-      item.addEventListener('click', e => item.selected = !item.selected);
-    });
-    
+    _isHoofdgerecht(product) {
+      return product.categorie == 'hoofdgerecht';
+    }
 
-    window.customElements.define(MyView1.is, MyView1);
-  </script>
+    _isNagerecht(product) {
+      return product.categorie == 'nagerecht';
+    }
+
+    _bevestig_bestelling(){
+      var product_als_array = [];
+      var totaal = 0;
+      var prijs = 0
+
+      alert("Bestelling bevestigd");
+      console.log(this.gekozen_producten);
+
+      this.gekozen_producten.forEach(function(product) {
+        product_als_array = JSON.parse(product);
+        prijs = parseFloat(product_als_array.prijs);
+
+        totaal = totaal + prijs;
+      });
+      alert("Totaal is: €" + totaal);
+      this.totaalPrijs = totaal;
+    }
+
+    _itemSelected(event) {
+      var product = event.target.dataset.item;
+      this.push('gekozen_producten', product);
+      console.log(product);
+    }
+
+    _restartBestelling(){
+      var confirm_reactie = confirm("Bent u zeker dat u uw bestelling wilt wijzigen?");
+      if (confirm_reactie == true) {
+        window.location.reload(false);
+      }
+   }
+ }
+
+ window.addEventListener('WebComponentsReady', function() {
+  var item = document.querySelector('#selectable');
+  item.addEventListener('click', e => item.selected = !item.selected);
+});
+
+
+ window.customElements.define(MyView1.is, MyView1);
+</script>
 </dom-module>
