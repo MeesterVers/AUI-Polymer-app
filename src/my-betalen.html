@@ -2,25 +2,41 @@
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-betalen">
-       <template>
-          <style include="shared-styles">
-            :host {
-              display: block;
-      
-              padding: 10px;
-            }
-          </style>
-      
-            <h1>Betalen neef</h1>
-            
-        </template>
-      
-        <script>
-          class MyBetalen extends Polymer.Element {
-            static get is() { return 'my-betalen'; }
-          }
-      
-          window.customElements.define(MyBetalen.is, MyBetalen);
-        </script>
-      </dom-module>
-      
+ <template>
+  <style include="shared-styles">
+  :host {
+    display: block;
+
+    padding: 10px;
+  }
+</style>
+<template is="dom-repeat" items={{gekozen_producten}} as="product">
+  <p>[[product.prijs]]</p>
+</template>
+<h1>Betalen neef</h1>
+[[gekozen_producten]]
+</template>
+
+<script>
+  class MyBetalen extends Polymer.Element {
+
+   ready() {
+    super.ready();
+    var gekozen_producten = sessionStorage.getItem("gekozen producten");
+    console.log(gekozen_producten);
+  }
+
+  static get is() { return 'my-betalen'; }
+  static get properties() {
+    return {
+      gekozen_producten: {
+        type: Array,
+        value: []
+      }
+    };
+  }
+}
+
+window.customElements.define(MyBetalen.is, MyBetalen);
+</script>
+</dom-module>

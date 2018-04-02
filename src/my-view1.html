@@ -110,96 +110,107 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <script>
   class MyView1 extends Polymer.Element {
-    static get is() { return 'my-view1'; }
-    static get properties() {
-      return {
-        totaalPrijs: {
-          type: Number,
-          value: 0
-        },
 
-        producten: {
-          type: Array,
-          value: [
-          {naam:"Nasi", prijs:"8.50", categorie:"hoofdgerecht"},
-          {naam:"Bami", prijs:"7.00", categorie:"hoofdgerecht"},
-          {naam:"Roti Kip", prijs:"10.00", categorie:"hoofdgerecht"},
-          {naam:"Roti Doks", prijs:"12.00", categorie:"hoofdgerecht"},
-          {naam:"Saoto groot", prijs:"9.00", categorie:"voorgerecht"},
-          {naam:"Saoto klein", prijs:"7.00", categorie:"voorgerecht"},
-          {naam:"Ijscream", prijs:"5.50", categorie:"nagerecht"},
-          {naam:"Bami soep", prijs:"9.00", categorie:"voorgerecht"},
-          {naam:"Milkshake", prijs:"8.00", categorie:"nagerecht"},
-          {naam:"Saoto groot", prijs:"9.00", categorie:"nagerecht"},
-          {naam:"Termasusu", prijs:"7.50", categorie:"nagerecht"}
-          ]
-        },
-
-        gekozen_producten: {
-          type: Array,
-          value: []
-        }
-      };
-    }
-    _isVoorgerecht(product) {
-      return product.categorie == 'voorgerecht';
-    }
-
-    _isHoofdgerecht(product) {
-      return product.categorie == 'hoofdgerecht';
-    }
-
-    _isNagerecht(product) {
-      return product.categorie == 'nagerecht';
-    }
-
-    _bevestig_bestelling(){
-      var product_als_array = [];
-      var totaal = 0;
-      var prijs = 0
-
-      alert("Bestelling bevestigd");
-      console.log(this.gekozen_producten);
-
-      this.gekozen_producten.forEach(function(product) {
-        product_als_array = JSON.parse(product);
-        prijs = parseFloat(product_als_array.prijs);
-
-        totaal = totaal + prijs;
-      });
-      alert("Totaal is: €" + totaal);
-      this.totaalPrijs = totaal;
-    }
-
-    _itemSelected(product) {
-      var totaal = 0;
-      var prijs = 0
-      var gekozen_product = product.target.dataset.item;
-      var product_als_array = [];
-
-      this.push('gekozen_producten', gekozen_product);
-      product_als_array = JSON.parse(gekozen_product);
-      prijs = parseFloat(product_als_array.prijs);
-
-      totaal = this.totaalPrijs + prijs;
-      this.totaalPrijs = totaal;
-      console.log(gekozen_product);
-    }
-
-    _restartBestelling(){
-      var confirm_reactie = confirm("Bent u zeker dat u uw bestelling wilt wijzigen?");
-      if (confirm_reactie == true) {
-        window.location.reload(false);
-      }
-    }
+   ready() {
+    super.ready();
+    sessionStorage.clear();
+    console.log(this.producten);
   }
 
-  window.addEventListener('WebComponentsReady', function() {
-    var item = document.querySelector('#selectable');
-    item.addEventListener('click', e => item.selected = !item.selected);
-  });
+  static get is() { return 'my-view1'; }
+
+  static get properties() {
+    return {
+      totaalPrijs: {
+        type: Number,
+        value: 0
+      },
+
+      producten: {
+        type: Array,
+        value: [
+        {naam:"Nasi", prijs:"8.50", categorie:"hoofdgerecht"},
+        {naam:"Bami", prijs:"7.00", categorie:"hoofdgerecht"},
+        {naam:"Roti Kip", prijs:"10.00", categorie:"hoofdgerecht"},
+        {naam:"Roti Doks", prijs:"12.00", categorie:"hoofdgerecht"},
+        {naam:"Saoto groot", prijs:"9.00", categorie:"voorgerecht"},
+        {naam:"Saoto klein", prijs:"7.00", categorie:"voorgerecht"},
+        {naam:"Ijscream", prijs:"5.50", categorie:"nagerecht"},
+        {naam:"Bami soep", prijs:"9.00", categorie:"voorgerecht"},
+        {naam:"Milkshake", prijs:"8.00", categorie:"nagerecht"},
+        {naam:"Saoto groot", prijs:"9.00", categorie:"nagerecht"},
+        {naam:"Termasusu", prijs:"7.50", categorie:"nagerecht"}
+        ]
+      },
+
+      gekozen_producten: {
+        type: Array,
+        value: []
+      }
+    };
+  }
+  _isVoorgerecht(product) {
+    return product.categorie == 'voorgerecht';
+  }
+
+  _isHoofdgerecht(product) {
+    return product.categorie == 'hoofdgerecht';
+  }
+
+  _isNagerecht(product) {
+    return product.categorie == 'nagerecht';
+  }
+
+  _bevestig_bestelling(){
+    var product_als_array = [];
+    var totaal = 0;
+    var prijs = 0
+
+    alert("Bestelling bevestigd");
+    console.log(this.gekozen_producten);
+
+    this.gekozen_producten.forEach(function(product) {
+      product_als_array = JSON.parse(product);
+      prijs = parseFloat(product_als_array.prijs);
+
+      totaal = totaal + prijs;
+    });
+    alert("Totaal is: €" + totaal);
+    this.totaalPrijs = totaal;
+
+    sessionStorage.setItem("gekozen producten", this.gekozen_producten);
+    window.location = "betalen";
+  }
+
+  _itemSelected(product) {
+    var totaal = 0;
+    var prijs = 0
+    var gekozen_product = product.target.dataset.item;
+    var product_als_array = [];
+
+    this.push('gekozen_producten', gekozen_product);
+    product_als_array = JSON.parse(gekozen_product);
+    prijs = parseFloat(product_als_array.prijs);
+
+    totaal = this.totaalPrijs + prijs;
+    this.totaalPrijs = totaal;
+    console.log(gekozen_product);
+  }
+
+  _restartBestelling(){
+    var confirm_reactie = confirm("Bent u zeker dat u uw bestelling wilt wijzigen?");
+    if (confirm_reactie == true) {
+      window.location.reload(false);
+    }
+  }
+}
+
+window.addEventListener('WebComponentsReady', function() {
+  var item = document.querySelector('#selectable');
+  item.addEventListener('click', e => item.selected = !item.selected);
+});
 
 
-  window.customElements.define(MyView1.is, MyView1);
+window.customElements.define(MyView1.is, MyView1);
 </script>
 </dom-module>
