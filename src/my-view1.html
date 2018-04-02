@@ -45,7 +45,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     d2l-button {
       margin-top: 1em;
     }      
-
+    
+    d2l-menu-item{
+        background-color: rgb(91, 148, 255);
+        color: white;
+    }
+    
+    h2{
+      margin-top: -1.5em;
+      text-align: right;
+    }
 
   </style>
   
@@ -62,6 +71,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 </d2l-menu>
 
+<br>
+
 <d2l-menu label="Hoofdgerecht">
   <d2l-menu-item text="Hoofdgerecht"></d2l-menu-item>
   <template is="dom-repeat" items="{{producten}}" as="product" filter="_isHoofdgerecht" observe="product.categorie">
@@ -69,6 +80,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 </d2l-menu>
 
+<br>
 
 <d2l-menu label="Nagerecht">
   <d2l-menu-item text="Nagerecht"></d2l-menu-item>
@@ -79,6 +91,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <d2l-button on-click="_bevestig_bestelling" primary>Bevestigen</d2l-button>
 
+<h2>Totaalprijs €5,-</h2>
+
 </template>
 
 <script>
@@ -88,7 +102,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       return {
         producten: {
           type: Array,
-            //observer: 'coinsGewijzigd',
             value: [
             {naam:"Nasi", prijs:"8.50", categorie:"hoofdgerecht"},
             {naam:"Bami", prijs:"7.00", categorie:"hoofdgerecht"},
