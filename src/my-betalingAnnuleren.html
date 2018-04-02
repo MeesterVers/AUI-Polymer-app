@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<dom-module id="my-betalingAnnuleren">
+    <template>
+        <style>
+            * {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .center {
+                margin: auto;
+                width: 50%;
+                padding: 10px;
+                font-family: 'Courier New', Courier, monospace;
+                text-align: center;
+            }
+
+            #test {
+                width: 200px;
+                margin: auto;
+            }
+
+            paper-button {
+                background-color: #0091ED;
+                color: white;
+                text-transform:initial;
+                margin-top: 1em;
+            }
+
+            paper-progress.yellow {
+                --paper-progress-active-color: var(--paper-yellow-500);
+                --paper-progress-secondary-color: var(--paper-yellow-100);
+
+            }
+
+            paper-progress.slow {
+                --paper-progress-indeterminate-cycle-duration: 7s;
+            }
+        </style>
+
+        <div class="center">
+            <h1>Totaalbedrag</h1>
+            <h1>[[totP]]</h1>
+            <h1>Betaling geannuleerd</h1>
+            <div id="test">
+                <paper-progress indeterminate class="slow yellow" value="0" secondary-progress="100"></paper-progress>
+            </div>
+            
+            <paper-button on-click="probeerHandler">probeer opnieuw</paper-button>
+        </div>
+    </template>
+
+    <script>
+        class MyBetalingAnnuleren extends Polymer.Element {
+            static get is() { return 'my-betalingannuleren'; }
+            static get properties() {
+                return {
+                    totP: String
+                };
+            }
+
+            constructor() {
+                super();
+                this.totP = "€135,00"
+            }
+            probeerHandler() {
+                if (confirm("opnieuw proberen?")) {
+                    window.location = "betaling"
+                }
+            }
+        }
+        window.customElements.define(MyBetalingAnnuleren.is, MyBetalingAnnuleren);
+    </script>
+</dom-module>
+
+</html>

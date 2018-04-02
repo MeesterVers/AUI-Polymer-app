@@ -18,7 +18,8 @@
     "vaadin-list-box": "vaadin/vaadin-list-box#^1.0.0-beta3",
     "iron-list": "PolymerElements/iron-list#^2.0.14",
     "iron-menu-behavior": "PolymerElements/iron-menu-behavior#^2.1.0",
-    "d2l-menu": "BrightspaceUI/menu#^1.0.4"
+    "d2l-menu": "BrightspaceUI/menu#^1.0.4",
+    "paper-progress": "PolymerElements/paper-progress#^2.1.0"
   },
   "resolutions": {
     "polymer": "^2.0.0"
