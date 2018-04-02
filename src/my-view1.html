@@ -46,15 +46,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       margin-top: 1em;
       float: left;
       margin-right:5px;
-    }      
+    }
+
     paper-button {
-        margin-top:1em;
-        background-color: #0091ED;
-        color:white;
-        text-transform:initial;
-        float: left;
+      margin-top:1em;
+      background-color: #0091ED;
+      color:white;
+      text-transform:initial;
+      float: left;
       margin-right:5px;
-      }
+    }
+
     d2l-menu-item{
       background-color: rgb(91, 148, 255);
       color: white;
@@ -99,11 +101,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </d2l-menu> 
 
 <div>
-<paper-button on-click="_bevestig_bestelling" primary>Bevestigen</paper-button>
-<paper-button on-click="_restartBestelling" primary>Bestelling wijzigen</paper-button></div>
+  <paper-button on-click="_bevestig_bestelling" primary>Bevestigen</paper-button>
+  <paper-button on-click="_restartBestelling" primary>Bestelling wijzigen</paper-button>
+</div>
 
 <h2>Totaalprijs €[[totaalPrijs]],-</h2>
-
 </template>
 
 <script>
@@ -112,8 +114,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     static get properties() {
       return {
         totaalPrijs: {
-          type: String,
-          value: '0'
+          type: Number,
+          value: 0
         },
 
         producten: {
@@ -169,10 +171,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.totaalPrijs = totaal;
     }
 
-    _itemSelected(event) {
-      var product = event.target.dataset.item;
-      this.push('gekozen_producten', product);
-      console.log(product);
+    _itemSelected(product) {
+      var totaal = 0;
+      var prijs = 0
+      var gekozen_product = product.target.dataset.item;
+      var product_als_array = [];
+
+      this.push('gekozen_producten', gekozen_product);
+      product_als_array = JSON.parse(gekozen_product);
+      prijs = parseFloat(product_als_array.prijs);
+
+      totaal = this.totaalPrijs + prijs;
+      this.totaalPrijs = totaal;
+      console.log(gekozen_product);
     }
 
     _restartBestelling(){
@@ -180,15 +191,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       if (confirm_reactie == true) {
         window.location.reload(false);
       }
-   }
- }
+    }
+  }
 
- window.addEventListener('WebComponentsReady', function() {
-  var item = document.querySelector('#selectable');
-  item.addEventListener('click', e => item.selected = !item.selected);
-});
+  window.addEventListener('WebComponentsReady', function() {
+    var item = document.querySelector('#selectable');
+    item.addEventListener('click', e => item.selected = !item.selected);
+  });
 
 
- window.customElements.define(MyView1.is, MyView1);
+  window.customElements.define(MyView1.is, MyView1);
 </script>
 </dom-module>
