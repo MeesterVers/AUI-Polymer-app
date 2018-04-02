@@ -13,7 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/vaadin-list-box/vaadin-list-box.html">
 <link rel="import" href="../bower_components/d2l-menu/d2l-menu.html">
 <link rel="import" href="../bower_components/d2l-menu/d2l-menu-item-checkbox.html">
-<link rel="import" href="../bower_components/d2l-button/d2l-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 
 <dom-module id="my-view1">
   <template>
@@ -47,7 +47,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       float: left;
       margin-right:5px;
     }      
-    
+    paper-button {
+        margin-top:1em;
+        background-color: #0091ED;
+        color:white;
+        text-transform: lowercase; 
+        float: left;
+      margin-right:5px;
+      }
     d2l-menu-item{
       background-color: rgb(91, 148, 255);
       color: white;
@@ -92,8 +99,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </d2l-menu> 
 
 <div>
-<d2l-button on-click="_bevestig_bestelling" primary>Bevestigen</d2l-button>
-<d2l-button on-click="_restartBestelling" primary>Bestelling wijzigen</d2l-button></div>
+<paper-button on-click="_bevestig_bestelling" primary>Bevestigen</paper-button>
+<paper-button on-click="_restartBestelling" primary>Bestelling wijzigen</paper-button></div>
 
 <h2>Totaalprijs €[[totaalPrijs]],-</h2>
 
