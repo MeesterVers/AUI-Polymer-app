@@ -56,6 +56,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       text-align: right;
     }
 
+  
+
   </style>
   
 <!--   <template is="dom-repeat" items="{{producten}}" as="product">
@@ -89,8 +91,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 </d2l-menu>
 
+<d2l-floating-buttons>
 <d2l-button on-click="_bevestig_bestelling" primary>Bevestigen</d2l-button>
-<d2l-button on-click="_restartBestelling" primary>Bestelling wijzigen</d2l-button>
+<d2l-button class= button on-click="_restartBestelling" primary>Bestelling wijzigen</d2l-button></d2l-floating-buttons>
 
 <h2>Totaalprijs €[[totaalPrijs]],-</h2>
 
