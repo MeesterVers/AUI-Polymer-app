@@ -23,7 +23,9 @@
    ready() {
     super.ready();
     var gekozen_producten = sessionStorage.getItem("gekozen producten");
-    console.log(gekozen_producten);
+    var producten = JSON.parse("["+gekozen_producten+"]");
+    this.gekozen_producten = producten;
+    console.log(this.gekozen_producten);
   }
 
   static get is() { return 'my-betalen'; }
