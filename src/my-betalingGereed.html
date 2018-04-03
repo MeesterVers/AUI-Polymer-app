@@ -1,28 +1,30 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="shared-styles.html">
+
 <dom-module id="my-betalinggereed">
     <template>
-        <style>
-            * {
-                font-family: Arial, Helvetica, sans-serif;
-            }
+        <style include="shared-styles">
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-            .center {
-                margin: auto;
-                width: 50%;
-                padding: 10px;
-                font-family: 'Courier New', Courier, monospace;
-                text-align: center;
-            }
+        .center {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
 
-            #test {
-                width: 200px;
-                margin: auto;
-            }
+        #test {
+            width: 200px;
+            margin: auto;
+        }
 
-        </style>
-
+    </style>
+    <div class="card">
         <div class="center">
             <h1>Totaalbedrag</h1>
             <h1>[[totP]]</h1>
@@ -31,23 +33,27 @@
                 <paper-progress color="blue" value="100" secondary-progress="100"></paper-progress>
             </div>
         </div>
-    </template>
+    </div>
+</template>
 
-    <script>
-        class MyBetalingGereed extends Polymer.Element {
-            static get is() { return 'my-betalinggereed'; }
-            static get properties() {
-                return {
-                    totP: String
-                };
-            }
-
-            constructor() {
-                super();
-                this.totP = "€135,00"
-                alert("Betaling succesvol\nBon wordt geprint")
-            }
+<script>
+    class MyBetalingGereed extends Polymer.Element {
+        static get is() { return 'my-betalinggereed'; }
+        static get properties() {
+            return {
+                totP: String
+            };
         }
-        window.customElements.define(MyBetalingGereed.is, MyBetalingGereed);
-    </script>
+
+        constructor() {
+            super();
+            this.totP = "€"+sessionStorage.getItem("totaalPrijs");
+            alert("Betaling succesvol\nBon wordt geprint");
+            setTimeout(function(){
+             window.location = "view1"; 
+            }, 5000);
+        }
+    }
+    window.customElements.define(MyBetalingGereed.is, MyBetalingGereed);
+</script>
 </dom-module>

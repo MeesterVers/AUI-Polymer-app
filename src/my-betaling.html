@@ -1,10 +1,11 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="shared-styles.html">
 
 <dom-module id="my-betaling">
     <template>
-        <style>
+        <style include="shared-styles">
             * {
                 font-family: Arial, Helvetica, sans-serif;
             }
@@ -33,6 +34,7 @@
                 --paper-progress-indeterminate-cycle-duration: 7s;
             }
         </style>
+        <div class="card">
         <div class="center">
             <h1>Totaalbedrag</h1>
             <h1>[[totP]]</h1>
@@ -45,6 +47,7 @@
             </paper-button>
             <paper-button on-click="betalenHandler">betalen</paper-button>
         </div>
+    </div>
     </template>
 
     <script>
@@ -58,16 +61,16 @@
 
             constructor() {
                 super();
-                this.totP = "€135,00"
+                this.totP = "€"+sessionStorage.getItem("totaalPrijs");
             }
             afbreekHandler() {
                 if (confirm("betaling afbreken?")) {
-                    window.location = "betalingAnnuleren"
+                    window.location = "betalingAnnuleren";
                 }
             }
             betalenHandler() {
                 if (confirm("betalen?")) {
-                    window.location = "betalingGereed"
+                    window.location = "betalingGereed";
                 }
             }
         }

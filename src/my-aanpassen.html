@@ -1,53 +1,54 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="shared-styles.html">
 
 <dom-module id="my-aanpassen">
 
   <template>
-    <style>
-      :host {
-        display: block;
-        font-family: Arial, Helvetica, sans-serif;
-      }
+    <style include="shared-styles">
+    :host {
+      display: block;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-      #geheel {
-        padding: 50px 0px 0px 200px;
-        width: 800px;
-        height: 250px;
-      }
+    #geheel {
+      padding: 50px 0px 0px 200px;
+      width: 800px;
+      height: 250px;
+    }
 
-      #text {
-        padding: 100px 0px 0px 100px;
-      }
+    #text {
+      padding: 100px 0px 0px 100px;
+    }
 
-      #links {
-        width: 400px;
-        height: 200px;
-        float: left;
-        padding: 15px;
+    #links {
+      width: 400px;
+      /*height: 200px;*/
+      float: left;
+      padding: 15px;
 
-      }
+    }
 
-      #links p {
-        padding: 10px;
-      }
+    #links p {
+      padding: 10px;
+    }
 
-      #rechts {
-        height: 200px;
-        width: 300px;
+    #rechts {
+      /*height: 200px;*/
+      width: 300px;
 
-        float: left;
-      }
+      float: left;
+    }
 
-      #text2 {
-        padding: 0px 0px 0px 100px;
-        height: 50px;
-      }
+    #text2 {
+      padding: 0px 0px 0px 100px;
+      height: 50px;
+    }
 
-      #gereedknop {
-        height: 50px;
-        float: right;
-        padding-right: 700px;      }
+    #gereedknop {
+      height: 50px;
+      float: right;
+      padding-right: 700px;      }
 
       #knoprij1 {
         padding: 20px 0px 0px 0px;
@@ -67,40 +68,24 @@
         text-transform:initial;
       }
     </style>
-
     <p id="text">Geselecteerde items:</p>
-    <div id="geheel">
-
-      <div id="links">
-        <p>voorgerecht: [[voorgerecht]]</p>
-        <p>hoofdgerecht: [[hoofdgerecht]]</p>
-        <p>nagerecht: [[nagerecht]]</p>
-      </div>
-      <div id="rechts">
-        <div id="knoprij1">
-          <paper-button on-click="aanpassenHandler">
-            aanpassen
-          </paper-button>
-          <paper-button on-click="verwijderVoorgerechtHandler">verwijderen</paper-button>
+    <div id="geheel">   
+      <template is="dom-repeat" items={{gekozen_producten}} as="product">
+        <div id="links">
+          <p>[[product.naam]]</p>
         </div>
-        <div id="knoprij2">
-          <paper-button on-click="aanpassenHandler">
-            aanpassen
-          </paper-button>
-          <paper-button on-click="verwijderHoofdGerechtHandler">verwijderen</paper-button>
+        <div id="rechts">
+          <div id="knoprij1">
+            <paper-button on-click="aanpassenHandler">
+              aanpassen
+            </paper-button>
+            <paper-button on-click="verwijderHandler" data-args="[[index]]">verwijderen</paper-button>
+          </div>
         </div>
-        <div id="knoprij3">
-          <paper-button on-click="aanpassenHandler">
-            aanpassen
-          </paper-button>
-          <paper-button on-click="verwijderNagerechtHandler">verwijderen</paper-button>
-        </div>
-      </div>
+      </template>
     </div>
     <div>
       <p id="text2">totaalprijs [[totP]]</p>
-    </div>
-    <div id="gereedknop">
       <paper-button on-click="gereedHandler">gereed</paper-button>
     </div>
   </template>
@@ -110,38 +95,35 @@
      * @customElement
      * @polymer
      */
-    class MyAanpassen extends Polymer.Element {
+     class MyAanpassen extends Polymer.Element {
       static get is() { return 'my-aanpassen'; }
       static get properties() {
         return {
-          totP: String, voorgerecht: String, hoofdgerecht: String, nagerecht: String, test: String
+          totP: String, 
+
+          gekozen_producten: {
+            type: Array,
+            value: []
+          }
         };
       }
 
       constructor() {
         super();
-        this.totP = "€" + "14,5" + "-";
-        this.voorgerecht = "brazilliaanse kippensoep";
-        this.hoofdgerecht = "nasi goreng";
-        this.nagerecht = "bananaflip";
+        this.totP = "€"+sessionStorage.getItem("totaalPrijs");
+        var gekozen_producten = sessionStorage.getItem("gekozen producten");
+        var producten = JSON.parse("["+gekozen_producten+"]");
+        this.gekozen_producten = producten;
+        console.log(this.gekozen_producten);
       }
 
-      verwijderVoorgerechtHandler() {
-        if (confirm("verwijder dit item?")) {
-          this.voorgerecht = ""
+      verwijderHandler(product_index) {
+        var confirm_reactie = confirm("verwijder dit item?");
+        if (confirm_reactie == true) {
+          console.log(product_index);
         }
       }
-      verwijderHoofdGerechtHandler() {
-        if (confirm("verwijder dit item?")) {
-          this.hoofdgerecht = ""
-        }
-
-      }
-      verwijderNagerechtHandler() {
-        if (confirm("verwijder dit item?")) {
-          this.nagerecht = ""
-        }
-      }
+   
       aanpassenHandler() {
         if (confirm("aanpassen?")) {
           window.location = ""

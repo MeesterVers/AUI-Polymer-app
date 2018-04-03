@@ -179,7 +179,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     this.totaalPrijs = totaal;
 
     sessionStorage.setItem("gekozen producten", this.gekozen_producten);
-    window.location = "betalen";
+    sessionStorage.setItem("totaalPrijs", this.totaalPrijs);
+    window.location = "aanpassen";
   }
 
   _productSelected(product) {
